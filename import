@@ -1,0 +1,16 @@
+#! /usr/bin/env bash
+set -eu
+
+FILENAME=$1
+
+if [[ "$FILENAME" == *.sql ]]; then
+    mysql -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" "$MYSQL_DATABASE" < /data/"$FILENAME"
+elif [[ "$FILENAME" == *.sql.gz ]]; then
+    zcat /local/"$FILENAME" | mysql -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" "$MYSQL_DATABASE"
+elif [[ "$FILENAME" == *.sql.zst ]]; then
+    zstd -d -c /local/"$FILENAME" | mysql -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" "$MYSQL_DATABASE"
+elif [[ "$FILENAME" == *.zip ]]; then
+    unzip -p "$FILENAME" | mysql -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" "$MYSQL_DATABASE"
+else
+    echo "Unknown file format"
+fi
