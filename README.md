@@ -15,7 +15,7 @@ services:
       MYSQL_USER: bar
       MYSQL_PASSWORD: baz
     volumes:
-      - .:/data:ro,delegated
+      - .:/data:delegated
       - db-data:/var/lib/mysql:delegated
 
 volumes:
