@@ -2,4 +2,4 @@
 set -eu
 
 DUMP_FILE="/data/${MYSQL_DATABASE}-`date +"%Y-%m-%d_%H:%M"`.sql.zst"
-mysqldump -v --quick --skip-lock-tables --disable-keys --set-gtid-purged=OFF -u${MYSQL_USER} -p${MYSQL_PASSWORD} ${MYSQL_DATABASE} | zstd -o $DUMP_FILE
+mysqldump -v --no-tablespaces --quick --skip-lock-tables --disable-keys --set-gtid-purged=OFF -u${MYSQL_USER} -p${MYSQL_PASSWORD} ${MYSQL_DATABASE} | zstd -o $DUMP_FILE
