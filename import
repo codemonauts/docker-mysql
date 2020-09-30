@@ -3,12 +3,14 @@ set -eu
 
 FILENAME=$1
 
+cd /data
+
 if [[ "$FILENAME" == *.sql ]]; then
-    mysql -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" "$MYSQL_DATABASE" < /data/"$FILENAME"
+    mysql -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" "$MYSQL_DATABASE" < "$FILENAME"
 elif [[ "$FILENAME" == *.sql.gz ]]; then
-    zcat /local/"$FILENAME" | mysql -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" "$MYSQL_DATABASE"
+    zcat "$FILENAME" | mysql -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" "$MYSQL_DATABASE"
 elif [[ "$FILENAME" == *.sql.zst ]]; then
-    zstd -d -c /local/"$FILENAME" | mysql -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" "$MYSQL_DATABASE"
+    zstd -d -c "$FILENAME" | mysql -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" "$MYSQL_DATABASE"
 elif [[ "$FILENAME" == *.zip ]]; then
     unzip -p "$FILENAME" | mysql -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" "$MYSQL_DATABASE"
 else
