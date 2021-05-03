@@ -1,7 +1,9 @@
 # codemonauts/mysql
 
-Simple MySQL 5.7 container which includes two scripts to easily import and export a database dump. It also contains
-[mycli](mycli.net), as an alternative MySQL-client with nicer colors and better tab completion.
+Simple MySQL 5.7 container with a few handy tools for local development:
+  * Import/Export script
+  * [mycli](mycli.net), as an alternative MySQL-client with nicer colors and better tab completion
+  * [sqlstrip](https://github.com/codemonauts/sqlstrip) to reduce loading time of databas dumps
 
 ## Usage with docker-compose
 
